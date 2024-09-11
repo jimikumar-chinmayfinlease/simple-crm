@@ -7,6 +7,10 @@ POST http://localhost:3005/users/create
 Content-Type: application/json
 
 {
-    "username": "Testuser",
+    "username": "Testuser1234",
     "password": "password"
 }
+
+### Search user based on username
+
+GET http://localhost:3005/users?username=Testuser

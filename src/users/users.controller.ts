@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CreateUser, UsersService } from './users.service';
+import { UsernameQuery } from 'src/datasource/datasource.service';
+import { UserEntity } from './users.entity';
 
 @Controller('users')
 export class UsersController {
@@ -11,5 +13,12 @@ export class UsersController {
     // handles the post request to /users/create endpoint to create new user
     async signUp(@Body() user: CreateUser) {
         return await this.userService.createUser(user);
+    }
+
+    @Get('') // get request handler that returns the filtered results of the users table
+    async filterUser(
+        @Query() usernameQuery: UsernameQuery // extracts the username query param for the endpoint url,
+    ): Promise<UserEntity[]> {
+        return await this.userService.filterByUsername(usernameQuery);
     }
 }
